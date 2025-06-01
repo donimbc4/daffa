@@ -34,71 +34,51 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $query = "SELECT * FROM users";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 $page_title = 'Konsultasi Program Latihan';
 include '../includes/header.php';
 ?>
 
 <div class="container">
     <div class="card">
-        <h2>Mulai Konsultasi</h2>
-        <form method="POST" action="recomendation.php">
-            <div class="form-group">
-                <label for="gender">Jenis Kelamin:</label>
-                <select name="gender" id="gender" class="form-control" required>
-                    <option value=""></option>
-                    <option value="male">Laki-laki</option>
-                    <option value="female">Perempuan</option>
-                </select>
+        <div style="margin-bottom: 10px; display: flex; justify-content: space-between;">
+            <h2>Master User</h2>
+            <div>
+                asd
             </div>
-
-            <div class="form-group">
-                <label for="weight">Berat Badan Saat Ini:</label>
-                <select name="weight" id="weight" class="form-control" required>
-                    <option value=""></option>
-                    <option value="50-70">50 - 70 kg</option>
-                    <option value="70-80">70 - 80 kg</option>
-                    <option value="80-100">80 - 100 kg</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="height">Tinggi Badan Saat Ini:</label>
-                <select name="height" id="height" class="form-control" required>
-                    <option value=""></option>
-                    <option value="165-175">165 cm - 175 cm</option>
-                    <option value="175-185">175 cm - 185 cm</option>
-                    <option value="185-190">185 cm - 190 cm</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="frequency">Frekuensi Berolahraga (per minggu):</label>
-                <select name="frequency" id="frequency" class="form-control" required>
-                    <option value=""></option>
-                    <option value="never">Tidak Pernah</option>
-                    <option value="3_times">3 Kali Seminggu</option>
-                    <option value="4_times">4 Kali Seminggu</option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Dapatkan Rekomendasi</button>     
-        </form>
-        
-
-        <?php if (!empty($recommendations)): ?>
-            <h3>Rekomendasi Program Latihan:</h3>
-            <ul>
-                <?php foreach ($recommendations as $recommendation): 
-                    header("Location: recommendation.php");
-                    exit();?>
-                    <li>
-                        <h4><?php echo htmlspecialchars($recommendation['case_name']); ?></h4>
-                        <p><?php echo nl2br(htmlspecialchars($recommendation['exercise_program'])); ?></p>
-                        <p><strong>Tingkat Keberhasilan:</strong> <?php echo $recommendation['success_rate']; ?>%</p>
-                    </li>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Username</td>
+                    <td>Email</td>
+                    <td>Fullname</td>
+                    <td>Role</td>
+                    <td>Created At</td>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users ?? [] as $key => $user): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($user['username']) ?></td>
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td><?= htmlspecialchars($user['full_name']) ?></td>
+                        <td><?= htmlspecialchars($user['role']) ?></td>
+                        <td><?= htmlspecialchars($user['created_at']) ?></td>
+                    </tr>
                 <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
+
+            </tbody>
+        </table>
     </div>
 </div>
 
