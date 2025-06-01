@@ -104,6 +104,16 @@ body {
     }
 }
 
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+
 .table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;

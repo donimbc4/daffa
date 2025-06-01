@@ -18,6 +18,7 @@
                     <a href="/" class="btn btn-outline">Dashboard</a>
                     <a href="/user/master-role" class="btn btn-outline">Master Role</a>
                     <a href="/user/master-user" class="btn btn-outline">Master User</a>
+                    <a href="/user/master-cases" class="btn btn-outline">Master Cases</a>
                     <a href="/logout.php" class="btn btn-outline">Logout</a>
                 <?php else: ?>
                     <a href="/login.php" class="btn btn-outline">Login</a>

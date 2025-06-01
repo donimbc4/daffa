@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Bulan Mei 2025 pada 15.13
+-- Waktu pembuatan: 29 Bulan Mei 2025 pada 08.55
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -42,8 +42,17 @@ CREATE TABLE `cases` (
   `duration_weeks` int(11) DEFAULT NULL,
   `success_rate` decimal(5,2) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `frequency` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `cases`
+--
+
+INSERT INTO `cases` (`case_id`, `case_name`, `age_range`, `gender`, `height_range`, `weight_range`, `fitness_level`, `fitness_goal`, `available_time_range`, `equipment_needed`, `exercise_program`, `duration_weeks`, `success_rate`, `created_by`, `created_at`, `frequency`) VALUES
+(1, 'Program Latihan Pemula Laki-laki 50-70kg', NULL, 'male', '165-175', '50-70', NULL, NULL, NULL, NULL, 'Latihan: Push-up, Squat, Running', NULL, 85.50, NULL, '2025-05-27 14:12:25', '3_times'),
+(2, 'Program Latihan Pemula Perempuan 50-70kg', NULL, 'female', '165-175', '50-70', NULL, NULL, NULL, NULL, 'Latihan: Jumping Jack, Plank, Walking', NULL, 80.20, NULL, '2025-05-27 14:12:25', '3_times');
 
 -- --------------------------------------------------------
 
@@ -102,7 +111,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `full_name`, `role`, `created_at`) VALUES
-(1, 'daffakhsnl', 'uyeedaffa@gmail.com', '$2y$10$tEufPVkRL/r3FNUgXDcU8unI3yZWOwDmHkN1o.aOLmpRgPrbqPzqy', 'Daffa Akhsanul Hamid', 'user', '2025-05-27 10:06:39');
+(1, 'daffakhsnl', 'uyeedaffa@gmail.com', '$2y$10$tEufPVkRL/r3FNUgXDcU8unI3yZWOwDmHkN1o.aOLmpRgPrbqPzqy', 'Daffa Akhsanul Hamid', 'user', '2025-05-27 10:06:39'),
+(3, '123r', 's@d.com', '$2y$10$EyuXZsNjfFj7bNbbsMMiEeSaBYnx6n1NKOgJlu7kWMgxkqP3DHCOG', '12s', 'user', '2025-05-28 10:13:36');
 
 -- --------------------------------------------------------
 
@@ -173,7 +183,7 @@ ALTER TABLE `user_profiles`
 -- AUTO_INCREMENT untuk tabel `cases`
 --
 ALTER TABLE `cases`
-  MODIFY `case_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `exercises`
@@ -191,7 +201,7 @@ ALTER TABLE `rekomendasi`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_profiles`

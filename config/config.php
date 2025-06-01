@@ -24,4 +24,8 @@ function isAdmin() {
 function sanitize($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
+
+function toNullIfEmpty($value) {
+    return trim($value) === '' ? null : $value;
+}
 ?>
