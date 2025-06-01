@@ -1,6 +1,6 @@
 <?php
-require_once '../config/config.php';  // Menghubungkan dengan konfigurasi umum
-require_once '../config/database.php';  // Menghubungkan dengan koneksi database
+require_once '../../config/config.php';  // Menghubungkan dengan konfigurasi umum
+require_once '../../config/database.php';  // Menghubungkan dengan koneksi database
 
 // Pastikan pengguna sudah login
 if (!isLoggedIn()) {
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 
 $page_title = 'Master User';
-include '../includes/header.php';
+include '../../includes/header.php';
 ?>
 
 <div class="container">
@@ -53,7 +53,9 @@ include '../includes/header.php';
         <div style="margin-bottom: 10px; display: flex; justify-content: space-between;">
             <h2>Master User</h2>
             <div>
-                asd
+                <a href="/user/master-user/create.php" class="btn btn-primary btn-block">
+                    <i class="fas fa-plus"></i> Tambah User
+                </a>
             </div>
         </div>
         <table class="table">
@@ -65,6 +67,7 @@ include '../includes/header.php';
                     <th>Fullname</th>
                     <th>Role</th>
                     <th>Created At</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,6 +79,11 @@ include '../includes/header.php';
                         <td><?= htmlspecialchars($user['full_name']) ?></td>
                         <td><?= htmlspecialchars($user['role']) ?></td>
                         <td><?= htmlspecialchars($user['created_at']) ?></td>
+                        <td>
+                            <a href="<?="/user/master-user/edit.php?id={$user['user_id']}"?>" class="btn btn-primary btn-block">
+                                <i class="fas fa-pen"></i> Edit
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -83,4 +91,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../../includes/footer.php'; ?>
