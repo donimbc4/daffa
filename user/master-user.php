@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$page_title = 'Konsultasi Program Latihan';
+$page_title = 'Master User';
 include '../includes/header.php';
 ?>
 
@@ -59,16 +59,18 @@ include '../includes/header.php';
         <table class="table">
             <thead>
                 <tr>
-                    <td>Username</td>
-                    <td>Email</td>
-                    <td>Fullname</td>
-                    <td>Role</td>
-                    <td>Created At</td>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Fullname</th>
+                    <th>Role</th>
+                    <th>Created At</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($users ?? [] as $key => $user): ?>
                     <tr>
+                        <td><?=$key+1?></td>
                         <td><?= htmlspecialchars($user['username']) ?></td>
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td><?= htmlspecialchars($user['full_name']) ?></td>
@@ -76,7 +78,6 @@ include '../includes/header.php';
                         <td><?= htmlspecialchars($user['created_at']) ?></td>
                     </tr>
                 <?php endforeach; ?>
-
             </tbody>
         </table>
     </div>
