@@ -29,29 +29,32 @@ if (!$user) {
 $username = $user['username'];
 $email = $user['email'];
 $full_name = $user['full_name'];
+$role = $user['role'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_full_name = sanitize($_POST['full_name']);
     $new_username = sanitize($_POST['username']);
     $new_email = sanitize($_POST['email']);
     $new_password = $_POST['password']; // bisa kosong
+    $new_role = $_POST['role'];
 
     try {
         if (!empty($new_password)) {
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $updateQuery = "UPDATE users SET full_name = ?, username = ?, email = ?, password = ? WHERE user_id = ?";
+            $updateQuery = "UPDATE users SET full_name = ?, username = ?, email = ?, password = ?, role = ? WHERE user_id = ?";
             $stmt = $db->prepare($updateQuery);
-            $stmt->execute([$new_full_name, $new_username, $new_email, $hashed_password, $id]);
+            $stmt->execute([$new_full_name, $new_username, $new_email, $hashed_password, $new_role, $id]);
         } else {
-            $updateQuery = "UPDATE users SET full_name = ?, username = ?, email = ? WHERE user_id = ?";
+            $updateQuery = "UPDATE users SET full_name = ?, username = ?, email = ?, role = ? WHERE user_id = ?";
             $stmt = $db->prepare($updateQuery);
-            $stmt->execute([$new_full_name, $new_username, $new_email, $id]);
+            $stmt->execute([$new_full_name, $new_username, $new_email, $new_role, $id]);
         }
 
         $success_message = "User berhasil diperbarui.";
         $username = $new_username;
         $email = $new_email;
         $full_name = $new_full_name;
+        $role = $new_role;
     } catch (PDOException $e) {
         $error_message = "Error: " . $e->getMessage();
     }
@@ -89,6 +92,15 @@ include '../../includes/header.php';
             <div class="form-group">
                 <label for="password">Password (Kosongkan jika tidak ingin mengubah)</label>
                 <input type="password" id="password" name="password" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="" disabled selected>- Pilih Role -</option>
+                    <option value="admin" <?= $role === 'admin' ? 'selected' : '' ?>>Admin</option>
+                    <option value="user" <?= $role === 'user' ? 'selected' : '' ?>>User</option>
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary btn-block">

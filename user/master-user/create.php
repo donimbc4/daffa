@@ -15,11 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = sanitize($_POST['email']);
     $full_name = sanitize($_POST['full_name']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role = $_POST['role'];
     
     try {
-        $query = "INSERT INTO users (username, email, full_name, password) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO users (username, email, full_name, password, role) VALUES (?, ?, ?, ?)";
         $stmt = $db->prepare($query);
-        $stmt->execute([$username, $email, $full_name, $password]);
+        $stmt->execute([$username, $email, $full_name, $password, $role]);
         $success_message = "User berhasil ditambah.";
     } catch(PDOException $e) {
         $error_message = "Error: " . $e->getMessage();
@@ -60,6 +61,15 @@ include '../../includes/header.php';
                 <input type="password" id="password" name="password" class="form-control" required>
             </div>
             
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="" disabled selected>- Pilih Role -</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-block">
                 <i class="fas fa-user-plus"></i> Daftar
             </button>
