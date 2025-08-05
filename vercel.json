@@ -2,7 +2,7 @@
   "version": 2,
   "headers": [
     {
-      "source": "/(.*\.php)",  // Target semua file .php
+      "source": "/(.*\\.php)",  // Target semua file .php
       "headers": [
         {
           "key": "Content-Type",
